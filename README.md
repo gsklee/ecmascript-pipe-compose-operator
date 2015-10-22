@@ -34,6 +34,10 @@ f(g(42)); // 85
 ```
 
 ```javascript
+f(42 -> g); // 85
+```
+
+```javascript
 42 -> g -> f; // 85
 ```
 
@@ -46,10 +50,34 @@ gf(42); // 85
 
 ```javascript
 const gf = x => x -> g -> f;
-gf(42); // 85
+42 -> gf; // 85
+```
+
+**With Shorthand**
+```javascript
+const gf = g -> f;
+42 -> gf; // 85
+```
+
+### Eg.
+
+```javascript
+(y => f((x => x * 2)(y)))(42); // 85
 ```
 
 ```javascript
-const gf = g -> f;
-gf(42); // 85
+42 -> y => f((x => x * 2)(y)); // 85
+```
+
+```javascript
+42 -> y => f(y -> x => x * 2); // 85
+```
+
+```javascript
+42 -> y => y -> x => x * 2 -> f; // 85
+```
+
+**With Shorthand**
+```javascript
+42 -> x => x * 2 -> f; // 85
 ```
