@@ -1,0 +1,1 @@
+# ecmascript-pipe-compose-operator
