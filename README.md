@@ -85,7 +85,7 @@ const _42_g = 42 -> g;
 _42_g -> f; // 85
 ```
 
--
+--
 
 ```javascript
 const a = x => y => x(y) + 1;
@@ -120,4 +120,41 @@ a(b(c(d)))(42); // 5
 42 -> b => ((c => (d => d - 4)(c) % 3)(b) * 2) + 1; // 5
 /* ...Same As */
 42 -> d => (((d - 4) % 3) * 2) + 1; // 5
+```
+
+--
+
+```javascript
+function compose(...fs) {
+  return x => fs.reduceRight((_x, f) => f(_x), x);
+}
+```
+
+### Eg.
+
+```javascript
+compose(
+  applyMiddleware(
+    ReduxPromise,
+    createLogger()
+  ),
+
+  persistState(
+    filterPersistedState('user.data')(adapter(window.sessionStorage))
+  )
+)(
+  createStore
+)(
+  mergePersistedState()(
+    combineReducers(
+      defaultState::reduceToObject((_, stateName) => combineReducers(reducers[stateName]), {
+        form: formReducer.plugin({
+          editor: reducers.form.editor
+        })
+      })
+    )
+  ),
+
+  initialState
+);
 ```
