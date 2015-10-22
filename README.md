@@ -212,9 +212,8 @@ applyMiddleware(
 ```
 
 ```javascript
-applyMiddleware(
-  ReduxPromise,
-  createLogger()
+(
+  (ReduxPromise, createLogger()) -> applyMiddleware
 )(
   persistState(
     filterPersistedState('user.data')(adapter(window.sessionStorage))
@@ -224,5 +223,70 @@ applyMiddleware(
   initialState
 );
 /* Same As */
-
+(
+  (ReduxPromise, createLogger()) -> applyMiddleware
+)(
+  persistState(
+    ('user.data' -> filterPersistedState)(adapter(window.sessionStorage))
+  )(createStore)
+)(
+  mergePersistedState()(rootReducer),
+  initialState
+);
+/* Same As */
+(
+  (ReduxPromise, createLogger()) -> applyMiddleware
+)(
+  persistState(
+    window.sessionStorage -> adapter -> ('user.data' -> filterPersistedState)
+  )(createStore)
+)(
+  mergePersistedState()(rootReducer),
+  initialState
+);
+/* Same As */
+(
+  (ReduxPromise, createLogger()) -> applyMiddleware
+)(
+  (window.sessionStorage -> adapter -> ('user.data' -> filterPersistedState) -> persistState)(createStore)
+)(
+  mergePersistedState()(rootReducer),
+  initialState
+);
+/* Same As */
+(
+  (ReduxPromise, createLogger()) -> applyMiddleware
+)(
+  createStore -> (window.sessionStorage -> adapter -> ('user.data' -> filterPersistedState) -> persistState)
+)(
+  mergePersistedState()(rootReducer),
+  initialState
+);
+/* Same As */
+(
+  createStore ->
+  (window.sessionStorage -> adapter -> ('user.data' -> filterPersistedState) -> persistState) ->
+  ((ReduxPromise, createLogger()) -> applyMiddleware)
+)(
+  mergePersistedState()(rootReducer),
+  initialState
+);
+/* Same As */
+(
+  createStore ->
+  (window.sessionStorage -> adapter -> ('user.data' -> filterPersistedState) -> persistState) ->
+  ((ReduxPromise, createLogger()) -> applyMiddleware)
+)(
+  rootReducer -> mergePersistedState(),
+  initialState
+);
+/* Same As */
+(
+  rootReducer -> mergePersistedState(),
+  initialState
+) -> (
+  createStore ->
+  (window.sessionStorage -> adapter -> ('user.data' -> filterPersistedState) -> persistState) ->
+  ((ReduxPromise, createLogger()) -> applyMiddleware)
+);
 ```
