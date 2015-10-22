@@ -145,16 +145,22 @@ compose(
 )(
   createStore
 )(
-  mergePersistedState()(
-    combineReducers(
-      defaultState::reduceToObject((_, stateName) => combineReducers(reducers[stateName]), {
-        form: formReducer.plugin({
-          editor: reducers.form.editor
-        })
-      })
-    )
-  ),
-
+  mergePersistedState()(rootReducer),
   initialState
+);
+```
+
+```javascript
+(
+  mergePersistedState()(rootReducer),
+  initialState
+)
+-> createStore
+-> persistState(
+  filterPersistedState('user.data')(adapter(window.sessionStorage))
+)
+-> applyMiddleware(
+  ReduxPromise,
+  createLogger()
 );
 ```
