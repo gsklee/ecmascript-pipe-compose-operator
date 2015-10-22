@@ -35,7 +35,7 @@ f(g(42)); // 85
 
 ```javascript
 f(42 -> g); // 85
-
+/* Same As */
 42 -> g -> f; // 85
 ```
 
@@ -62,9 +62,9 @@ const gf = g -> f;
 
 ```javascript
 42 -> y => f((x => x * 2)(y)); // 85
-
+/* Same As */
 42 -> y => f(y -> x => x * 2); // 85
-
+/* Same As */
 42 -> y => y -> x => x * 2 -> f; // 85
 ```
 
