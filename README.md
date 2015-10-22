@@ -87,10 +87,12 @@ _42_g -> f; // 85
 
 -
 
+```javascript
 const a = x => y => x(y) + 1;
 const b = x => y => x(y) * 2;
 const c = x => y => x(y) % 3;
 const d = x => x - 4;
+```
 
 ### Eg.
 
