@@ -10,29 +10,46 @@ const h = x => x % 3;
 ### Eg.
 
 ```javascript
-f(1); // 2
+f(42); // 43
 ```
 
 ```javascript
-1 -> f; // 2
-```
-
-### Eg.
-
-```javascript
-(x => x + 1)(1); // 2
-```
-
-```javascript
-1 -> x => x + 1; // 2
+42 -> f; // 43
 ```
 
 ### Eg.
 
 ```javascript
-f(g(1)); // 3
+(x => x + 1)(42); // 43
 ```
 
 ```javascript
-1 -> g -> f; // 3
+42 -> x => x + 1; // 43
+```
+
+### Eg.
+
+```javascript
+f(g(42)); // 85
+```
+
+```javascript
+42 -> g -> f; // 85
+```
+
+### Eg.
+
+```javascript
+const gf = x => f(g(x));
+gf(42); // 85
+```
+
+```javascript
+const gf = x => x -> g -> f;
+gf(42); // 85
+```
+
+```javascript
+const gf = g -> f;
+gf(42); // 85
 ```
