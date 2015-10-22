@@ -82,7 +82,5 @@ f(g42); // 85
 ```javascript
 const g42 = 42 -> g;
 
-f(g42); // 85
-/* Same As */
 g42 -> f; // 85
 ```
