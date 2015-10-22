@@ -222,7 +222,9 @@ applyMiddleware(
   mergePersistedState()(rootReducer),
   initialState
 );
+
 /* Same As */
+
 (
   (ReduxPromise, createLogger()) -> applyMiddleware
 )(
@@ -233,7 +235,9 @@ applyMiddleware(
   mergePersistedState()(rootReducer),
   initialState
 );
+
 /* Same As */
+
 (
   (ReduxPromise, createLogger()) -> applyMiddleware
 )(
@@ -244,49 +248,93 @@ applyMiddleware(
   mergePersistedState()(rootReducer),
   initialState
 );
+
 /* Same As */
+
 (
   (ReduxPromise, createLogger()) -> applyMiddleware
 )(
-  (window.sessionStorage -> adapter -> ('user.data' -> filterPersistedState) -> persistState)(createStore)
+  (
+    window.sessionStorage -> adapter -> ('user.data' -> filterPersistedState) -> persistState
+  )(createStore)
 )(
   mergePersistedState()(rootReducer),
   initialState
 );
+
 /* Same As */
+
 (
   (ReduxPromise, createLogger()) -> applyMiddleware
 )(
-  createStore -> (window.sessionStorage -> adapter -> ('user.data' -> filterPersistedState) -> persistState)
+  createStore -> (
+    window.sessionStorage -> adapter -> ('user.data' -> filterPersistedState) -> persistState
+  )
 )(
   mergePersistedState()(rootReducer),
   initialState
 );
+
 /* Same As */
+
 (
-  createStore ->
-  (window.sessionStorage -> adapter -> ('user.data' -> filterPersistedState) -> persistState) ->
-  ((ReduxPromise, createLogger()) -> applyMiddleware)
+  createStore -> (
+    window.sessionStorage -> adapter -> ('user.data' -> filterPersistedState) -> persistState
+  ) -> (
+    (ReduxPromise, createLogger()) -> applyMiddleware
+  )
 )(
   mergePersistedState()(rootReducer),
   initialState
 );
+
 /* Same As */
+
 (
-  createStore ->
-  (window.sessionStorage -> adapter -> ('user.data' -> filterPersistedState) -> persistState) ->
-  ((ReduxPromise, createLogger()) -> applyMiddleware)
+  createStore -> (
+    window.sessionStorage -> adapter -> ('user.data' -> filterPersistedState) -> persistState
+  ) -> (
+    (ReduxPromise, createLogger()) -> applyMiddleware
+  )
 )(
   rootReducer -> mergePersistedState(),
   initialState
 );
+
 /* Same As */
+
 (
   rootReducer -> mergePersistedState(),
   initialState
 ) -> (
-  createStore ->
-  (window.sessionStorage -> adapter -> ('user.data' -> filterPersistedState) -> persistState) ->
-  ((ReduxPromise, createLogger()) -> applyMiddleware)
+  createStore -> (
+    window.sessionStorage -> adapter -> ('user.data' -> filterPersistedState) -> persistState
+  ) -> (
+    (ReduxPromise, createLogger()) -> applyMiddleware
+  )
 );
+```
+
+```
+(Reducer, ?State) -> (
+  StoreCreator
+  -> StoreEnhancer: StoreCreator
+  -> StoreEnhancer: StoreCreator 
+): Store
+
+(
+  Reducer -> Reducer => Reducer,
+  ?State
+) -> (
+  StoreCreator -> (
+  	Storage
+    -> Storage => Object
+    -> (
+      string
+      -> string => Object => Object
+    )
+    -> Object => StoreEnhancer
+  ): StoreCreator 
+  -> StoreEnhancer: StoreCreator 
+): Store
 ```
