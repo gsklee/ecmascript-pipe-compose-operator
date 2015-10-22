@@ -125,6 +125,52 @@ a(b(c(d)))(42); // 5
 --
 
 ```javascript
+const X = x => y => z => z(y(x));
+const Y = x => x * 9;
+const Z = x => x % 4;
+```
+
+### Eg.
+
+```javascript
+X(42)(Y)(Z); // 2
+```
+
+```javascript
+(42 -> X)(Y)(Z); // 2
+/* Same As */
+(Y -> (42 -> X))(Z); // 2
+/* Same As */
+(Z -> (Y -> (42 -> X))); // 2
+```
+
+### Eg.
+
+```javascript
+(x => y => z => z(y(x)))(42)(x => x * 9)(x => x % 4); // 2
+/* Same As */
+(y => z => z(y(42)))(x => x * 9)(x => x % 4); // 2
+/* Same As */
+(z => z((x => x * 9)(42)))(x => x % 4); // 2
+/* Same As */
+(x => x % 4)((x => x * 9)(42)); // 2
+```
+
+```javascript
+(x => y => z => x -> y -> z)(42)(x => x * 9)(x => x % 4); // 2
+/* Same As */
+(x => x % 4) -> ((x => x * 9) -> (42 -> (x => y => z => x -> y -> z))); // 2
+/* Same As */
+(x => x % 4) -> ((x => x * 9) -> (y => z => 42 -> y -> z)); // 2
+/* Same As */
+(x => x % 4) -> (z => 42 -> x => x * 9 -> z); // 2
+/* Same As */
+42 -> x => x * 9 -> x => x % 4; // 2
+```
+
+--
+
+```javascript
 function compose(...fs) {
   return x => fs.reduceRight((_x, f) => f(_x), x);
 }
@@ -150,17 +196,33 @@ compose(
 );
 ```
 
+**Without `compose()`**
 ```javascript
-(
-  mergePersistedState()(rootReducer),
-  initialState
-)
--> createStore
--> persistState(
-  filterPersistedState('user.data')(adapter(window.sessionStorage))
-)
--> applyMiddleware(
+applyMiddleware(
   ReduxPromise,
   createLogger()
+)(
+  persistState(
+    filterPersistedState('user.data')(adapter(window.sessionStorage))
+  )(createStore)
+)(
+  mergePersistedState()(rootReducer),
+  initialState
 );
+```
+
+```javascript
+applyMiddleware(
+  ReduxPromise,
+  createLogger()
+)(
+  persistState(
+    filterPersistedState('user.data')(adapter(window.sessionStorage))
+  )(createStore)
+)(
+  mergePersistedState()(rootReducer),
+  initialState
+);
+/* Same As */
+
 ```
