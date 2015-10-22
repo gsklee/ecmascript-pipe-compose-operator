@@ -42,17 +42,17 @@ f(42 -> g); // 85
 ### Eg.
 
 ```javascript
-const gf = x => f(g(x));
+const _g_f = x => f(g(x));
 
-gf(42); // 85
+_g_f(42); // 85
 ```
 
 ```javascript
-const gf = x => x -> g -> f;
+const _g_f = x => x -> g -> f;
 /* Same As */
-const gf = g -> f;
+const _g_f = g -> f;
 
-42 -> gf; // 85
+42 -> _g_f; // 85
 ```
 
 ### Eg.
@@ -74,13 +74,13 @@ const gf = g -> f;
 ### Eg.
 
 ```javascript
-const g42 = g(42);
+const _42_g = g(42);
 
-f(g42); // 85
+f(_42_g); // 85
 ```
 
 ```javascript
-const g42 = 42 -> g;
+const _42_g = 42 -> g;
 
-g42 -> f; // 85
+_42_g -> f; // 85
 ```
