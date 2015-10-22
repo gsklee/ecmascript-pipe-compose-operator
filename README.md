@@ -7,7 +7,7 @@ const g = x => x * 2;
 const h = x => x % 3;
 ```
 
-### A.
+### Eg.
 
 ```javascript
 f(1); // 2
@@ -17,7 +17,17 @@ f(1); // 2
 1 -> f; // 2
 ```
 
-### B.
+### Eg.
+
+```javascript
+(x => x + 1)(1); // 2
+```
+
+```javascript
+1 -> x => x + 1; // 2
+```
+
+### Eg.
 
 ```javascript
 f(g(1)); // 3
